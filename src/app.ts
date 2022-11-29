@@ -1,7 +1,19 @@
-import express from 'express';
+import express, { Application } from 'express';
+import morgan from 'morgan';
+import userRoutes from './routes/userRoutes';
 
-const app = express()
+const app: Application = express();
 
+// * Settings
 
+app.set('port', process.env.PORT || 3000);
+// * Middlewares
 
-export default app
+app.use(express.json());
+app.use(morgan('dev'));
+
+// * Routes
+
+app.use('/user', userRoutes);
+
+export default app;
