@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
 import { handleServerError } from '../services/errorServices';
-import { signInUser, signUpUser } from '../services/userServices';
+import {
+    restorePassword,
+    signInUser,
+    signUpUser,
+    updateUser,
+} from '../services/userServices';
 import 'colors';
 
 const signUp = async (req: Request, res: Response) => {
@@ -21,8 +26,22 @@ const signIn = async (req: Request, res: Response) => {
     }
 };
 
+const sendRestorePassword = async (req: Request, res: Response) => {
+    try {
+        restorePassword(req, res);
+    } catch (error) {
+        console.log(`${error}`.bgRed.white);
+        handleServerError(res);
+    }
+};
 
+const update = async (req: Request, res: Response) => {
+    try {
+        updateUser(req, res);
+    } catch (error) {
+        console.log(`${error}`.bgRed.white);
+        handleServerError(res);
+    }
+};
 
-
-
-export { signUp, signIn };
+export { signUp, signIn, update, sendRestorePassword };

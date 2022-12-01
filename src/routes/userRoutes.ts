@@ -1,6 +1,11 @@
 import { Router } from 'express';
-import { check } from 'express-validator';
-import { signIn, signUp } from '../controllers/userControllers';
+import { check, header } from 'express-validator';
+import {
+    sendRestorePassword,
+    signIn,
+    signUp,
+    update,
+} from '../controllers/userControllers';
 import {
     emailAlreadyExist,
     emailNoExist,
@@ -8,6 +13,7 @@ import {
     isValidUserName,
     validateFields,
 } from '../middlewares/userMiddlewares';
+import { validateJWT } from '../services/jwtServices';
 
 const router = Router();
 
@@ -31,6 +37,29 @@ router.post(
         validateFields,
     ],
     signIn
+);
+router.post(
+    '/restore',
+    [
+        check('email').custom(emailNoExist),
+        check('email', 'Not Valid Email').isEmail(),
+        validateFields,
+    ],
+    sendRestorePassword
+);
+
+router.put(
+    '/restore/:id',
+    [
+        validateJWT,
+        check('userName').custom(isValidUserName),
+        check('email').custom(emailNoExist),
+        check('email', 'Not Valid Email').isEmail(),
+        check('password').custom(isValidPassword),
+        header('x-token', 'Token missing').not().isEmpty(),
+        validateFields,
+    ],
+    update
 );
 
 export default router;
