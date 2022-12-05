@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
+import invoiceModel from '../models/invoiceModel';
 import userModel from '../models/userModel';
 
 const validateFields = (req: Request, res: Response, next: NextFunction) => {
@@ -40,10 +41,19 @@ const emailNoExist = async (email: string = '') => {
     }
 };
 
+const existInvoice = async (_id: string = '') => {
+    const existInvoice = await invoiceModel.findById(_id);
+
+    if (existInvoice === null) {
+        throw new Error('Theres not invoice with that id');
+    }
+};
+
 export {
     validateFields,
     isValidUserName,
     isValidPassword,
     emailAlreadyExist,
     emailNoExist,
+    existInvoice,
 };

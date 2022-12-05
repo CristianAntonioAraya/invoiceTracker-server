@@ -13,6 +13,7 @@ mongoose.connection.once('open', () => {
         `${NODE_ENV}`.yellow,
         'mode'.magenta
     );
+    console.log('============================================'.cyan);
 });
 
 export default mongoose;

@@ -22,7 +22,14 @@ interface jwtPayload {
     id: string;
     userName: string;
 }
+interface payloadInvoice {
+    clientName: string;
+    description: string;
+    totalAmount: number;
+    linkToPay: number;
+}
+
 
 type InfoUser = Omit<IUser, 'userName'>;
 
-export { FullUser, InfoUser, createdUser, jwtPayload };
+export { FullUser, InfoUser, createdUser, jwtPayload, payloadInvoice };

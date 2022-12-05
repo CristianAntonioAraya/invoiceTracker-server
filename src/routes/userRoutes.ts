@@ -12,8 +12,7 @@ import {
     isValidPassword,
     isValidUserName,
     validateFields,
-} from '../middlewares/userMiddlewares';
-import { validateJWT } from '../services/jwtServices';
+} from '../middlewares/validateFields';
 
 const router = Router();
 
@@ -51,7 +50,6 @@ router.post(
 router.put(
     '/restore/:id',
     [
-        validateJWT,
         check('userName').custom(isValidUserName),
         check('email').custom(emailNoExist),
         check('email', 'Not Valid Email').isEmail(),
