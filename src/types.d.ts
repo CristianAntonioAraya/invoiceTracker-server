@@ -28,8 +28,13 @@ interface payloadInvoice {
     totalAmount: number;
     linkToPay: number;
 }
-
+interface IError {
+    location: string;
+    msg: string;
+    param: string;
+    value: string;
+}
 
 type InfoUser = Omit<IUser, 'userName'>;
 
-export { FullUser, InfoUser, createdUser, jwtPayload, payloadInvoice };
+export { FullUser, InfoUser, createdUser, jwtPayload, payloadInvoice, IError };

@@ -2,17 +2,20 @@ import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import invoiceModel from '../models/invoiceModel';
 import userModel from '../models/userModel';
+import { IError } from '../types';
 
 const validateFields = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
+    const Errors: IError = errors.errors[0];
+
     if (!errors.isEmpty()) {
-        return res.status(400).json(errors);
+        return res.status(401).json({ ok: false, msg: Errors });
     }
     next();
 };
 const isValidUserName = async (userName: string = '') => {
     if (userName === '') {
-        throw new Error(`UserName can't be empty`);
+        throw new Error(`UserName required`);
     }
 };
 const isValidPassword = async (password: string = '') => {

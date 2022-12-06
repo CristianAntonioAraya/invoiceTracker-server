@@ -8,12 +8,15 @@ const newInvoice = async (req: Request, res: Response) => {
         req.body as payloadInvoice;
     const userId = req.id;
     try {
+        const date = Date.now();
+
         const newInvoice = new invoiceModel({
             clientName,
             description,
             linkToPay,
             totalAmount,
             userId,
+            date,
         });
 
         await newInvoice.save();
@@ -37,6 +40,7 @@ const getInvoicesByOwner = async (req: Request, res: Response) => {
             return res.status(200).json({
                 ok: true,
                 msg: 'Not have invoices yet!',
+                invoices: [],
             });
         }
         res.status(200).json({

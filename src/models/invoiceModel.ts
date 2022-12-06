@@ -6,7 +6,7 @@ const invoiceModel = new Schema({
     invoiceNumber: { type: String, unique: true, default: 0 },
     userId: { type: Schema.Types.ObjectId, ref: 'user', require: true },
     description: { type: String, require: true },
-    date: { type: Date, default: Date.now() },
+    date: { type: Date, require: true },
     totalAmount: { type: Number, require: true },
     linkToPay: { type: String, require: true },
 });

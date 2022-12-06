@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import morgan from 'morgan';
 import userRoutes from './routes/userRoutes';
 import invoiceRoutes from './routes/invoiceRoutes';
+import cors from 'cors'
 
 const app: Application = express();
 
@@ -12,6 +13,7 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cors())
 
 // * Routes
 

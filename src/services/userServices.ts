@@ -41,6 +41,18 @@ const signInUser = async (req: Request, res: Response) => {
             email: user.email,
         })) as createdUser;
 
+        const verifiedPass = bcrypt.compareSync(
+            user.password,
+            loggedUser.password
+        );
+
+        if (!verifiedPass) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'Email or password incorrect',
+            });
+        }
+
         const token = await generateJwt(loggedUser?._id, loggedUser?.userName);
 
         return res.status(200).json({
