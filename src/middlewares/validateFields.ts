@@ -6,7 +6,7 @@ import { IError } from '../types';
 
 const validateFields = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
-    const Errors: IError = errors.errors[0];
+    const Errors: IError = errors.errors[0]?.msg;
 
     if (!errors.isEmpty()) {
         return res.status(401).json({ ok: false, msg: Errors });

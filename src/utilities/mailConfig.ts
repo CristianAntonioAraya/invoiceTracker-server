@@ -4,7 +4,12 @@ import nodemailer from 'nodemailer';
 import path from 'path';
 import 'colors';
 
-const sendEmail = (res: Response, link: string, userName: string) => {
+const sendEmail = (
+    res: Response,
+    link: string,
+    userName: string,
+    email: string
+) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -27,7 +32,7 @@ const sendEmail = (res: Response, link: string, userName: string) => {
 
     const mailOptions = {
         from: 'services.arayacristian@gmail.com',
-        to: 'arayacristian1398@gmail.com',
+        to: email,
         subject: 'Sending Email using Node.js',
         template: 'email',
         context: {

@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import { check, header } from 'express-validator';
+import { check } from 'express-validator';
 import {
     sendRestorePassword,
     signIn,
     signUp,
     update,
+    validateSesion,
 } from '../controllers/userControllers';
 import {
     emailAlreadyExist,
@@ -48,16 +49,16 @@ router.post(
 );
 
 router.put(
-    '/restore/:id',
+    '/update/:id',
     [
         check('userName').custom(isValidUserName),
         check('email').custom(emailNoExist),
         check('email', 'Not Valid Email').isEmail(),
         check('password').custom(isValidPassword),
-        header('x-token', 'Token missing').not().isEmpty(),
         validateFields,
     ],
     update
 );
+router.post('/validate', validateSesion);
 
 export default router;

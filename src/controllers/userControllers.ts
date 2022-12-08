@@ -5,6 +5,7 @@ import {
     signInUser,
     signUpUser,
     updateUser,
+    handleValidateToken,
 } from '../services/userServices';
 import 'colors';
 
@@ -44,4 +45,13 @@ const update = async (req: Request, res: Response) => {
     }
 };
 
-export { signUp, signIn, update, sendRestorePassword };
+const validateSesion = async (req: Request, res: Response) => {
+    try {
+        handleValidateToken(req, res);
+    } catch (error) {
+        console.log(`${error}`.bgRed.white);
+        handleServerError(res);
+    }
+};
+
+export { signUp, signIn, update, sendRestorePassword, validateSesion };

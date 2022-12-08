@@ -35,4 +35,6 @@ const validateJWT = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
+
+
 export { generateJwt, validateJWT };
